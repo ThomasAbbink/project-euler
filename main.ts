@@ -10,20 +10,26 @@ if (import.meta.main) {
 
 type Problem = {
   name: string;
-  main: () => number | bigint;
+  main: () => number;
 };
 
-export function logResult(name: string, result: number | bigint): void {
+export function logResult(
+  name: string,
+  result: number | bigint | string
+): void {
   console.log(`${name}: ${result}`);
 }
 
 export async function runAllProblems(): Promise<void> {
-  const problemNames = Deno.readDir("./src/problems");
+  const dirEntries = Deno.readDir("./src/problems");
 
-  for await (const problemName of problemNames) {
-    console.log(`Running problem ${problemName.name}`);
-    await runProblem(problemName.name);
+  const names = [];
+  for await (const entry of dirEntries) {
+    names.push(entry.name);
   }
+  names.sort().forEach((name) => {
+    runProblem(name);
+  });
 }
 
 export async function runProblem(name: string): Promise<void> {
