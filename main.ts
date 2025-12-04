@@ -20,16 +20,25 @@ export function logResult(
   console.log(`${name}: ${result}`);
 }
 
-export async function runAllProblems(): Promise<void> {
-  const dirEntries = Deno.readDir("./src/problems");
-
+async function getAllFileNames() {
   const names = [];
+  const dirEntries = Deno.readDir("./src/problems");
   for await (const entry of dirEntries) {
     names.push(entry.name);
   }
-  names.sort().forEach((name) => {
-    runProblem(name);
+  return names.sort((a, b) => {
+    const aNumber = Number.parseInt(a.replace(".ts", ""));
+    const bNumber = Number.parseInt(b.replace(".ts", ""));
+    return aNumber - bNumber;
   });
+}
+
+export async function runAllProblems(): Promise<void> {
+  const fileNames = await getAllFileNames();
+
+  for (const name of fileNames) {
+    await runProblem(name);
+  }
 }
 
 export async function runProblem(name: string): Promise<void> {
