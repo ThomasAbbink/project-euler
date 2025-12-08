@@ -1,5 +1,5 @@
 import { sum } from "../utils/array.ts";
-import { findFactors } from "../utils/factors.ts";
+import { properDivisors } from "../utils/factors.ts";
 
 export function main() {
   const target = 10000;
@@ -20,5 +20,5 @@ export function main() {
 }
 
 function sumOfDivisors(number: number) {
-  return sum(findFactors(number).filter((n) => n !== number));
+  return sum(properDivisors(number));
 }
