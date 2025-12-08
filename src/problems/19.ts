@@ -8,7 +8,6 @@ export function main() {
   let count = 0;
   while (start <= endDate) {
     if (start.getDay() === 0 && start.getDate() === 1) {
-      console.log(start.toDateString());
       count++;
     }
     start.setDate(start.getDate() + 1);
