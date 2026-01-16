@@ -13,7 +13,6 @@ export function main() {
         }
 
         if (n > 40) {
-          console.log(`a: ${a}, b:${b} n: ${n} is not prime`);
           results.push({
             a,
             b,
