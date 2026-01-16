@@ -11,6 +11,6 @@ export function main() {
       res.push(i);
     }
   }
-  console.log(res);
+
   return sum(res);
 }
